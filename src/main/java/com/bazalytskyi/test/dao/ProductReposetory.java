@@ -24,6 +24,12 @@ public class ProductReposetory implements IProductReposetory {
 		String hql = "FROM Product as p WHERE p.category.id = ?";
 		return entityManager.createQuery(hql).setParameter(1, idCategory).getResultList();
 	}
+	
+	@Override
+	public int getNumberOfProducts(int idCategory) {
+		String hql = "FROM Product as p WHERE p.category.id = ?";
+		return entityManager.createQuery(hql).setParameter(1, idCategory).getResultList().size();
+	}
 
 	@Override
 	public Product getProductById(int categoryId, int productId) {

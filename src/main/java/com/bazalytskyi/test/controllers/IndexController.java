@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bazalytskyi.test.data.entities.CategoryDTO;
 import com.bazalytskyi.test.service.CategoryService;
 import com.bazalytskyi.test.service.ProductService;
 
@@ -23,6 +24,7 @@ public class IndexController {
 		Map<String, String> model = new HashMap<>();
 		model.put("name", "Alexey");
 
+		
 		return new ModelAndView("index", model);
 	}
 }

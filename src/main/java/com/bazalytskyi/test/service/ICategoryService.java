@@ -14,4 +14,12 @@ public interface ICategoryService {
 	void updateCategory(Category category);
 
 	void deleteCategory(int categoryId);
+
+	boolean isCategoryIdExist(int categoryId);
+
+	List<Category> getAllCategoriesByNameAndDescrpt(String name, String description);
+
+	List<Category> getAllCategoriesByName(String name);
+
+	List<Category> getAllCategoriesByDescrpt(String description);
 }

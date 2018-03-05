@@ -18,6 +18,11 @@ public class ProductService implements IProductService {
 	public List<Product> getAllProducts(int categoryId) {
 		return reposetory.getAllProducts(categoryId);
 	}
+	
+	@Override
+	public int getNumberOfProducts(int categoryId) {
+		return reposetory.getNumberOfProducts(categoryId);
+	}
 
 	@Override
 	public Product getProductById(int categoryId,int productId) {

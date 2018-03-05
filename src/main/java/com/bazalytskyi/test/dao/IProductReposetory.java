@@ -15,5 +15,7 @@ public interface IProductReposetory {
 	void updateProduct(Product product);
 
 	void deleteProduct(int categoryId,int productId);
+
+	int getNumberOfProducts(int idCategory);
 	
 }

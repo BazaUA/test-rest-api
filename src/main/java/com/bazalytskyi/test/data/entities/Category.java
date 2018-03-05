@@ -1,18 +1,24 @@
 package com.bazalytskyi.test.data.entities;
 
+
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Categories")
+@Table(name = "Categories")
 public class Category {
 	@Id
 	@GeneratedValue
 	private int id;
 	private String name;
 	private String description;
+	@OneToMany(mappedBy = "category")
+	private List<Product> products;
 
 	public Category(String name, String description) {
 		this.name = name;
@@ -46,6 +52,14 @@ public class Category {
 		this.description = description;
 	}
 
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -59,7 +73,7 @@ public class Category {
 			return false;
 		if (!this.description.equals(other.description))
 			return false;
-		
+
 		return true;
 	}
 

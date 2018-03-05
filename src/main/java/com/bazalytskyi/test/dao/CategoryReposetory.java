@@ -60,4 +60,32 @@ public class CategoryReposetory implements ICategoryReposetory {
 		return count > 0 ? true : false;
 	}
 
+	@Override
+	public boolean isIdExists(int id) {
+		Category cat = entityManager.find(Category.class, id);
+		return cat == null ? false : true;
+	}
+
+	@Override
+	public List<Category> getAllCategoriesByNameAndDescrpt(String name, String description) {
+		String hql = "FROM Category as cat WHERE cat.name = ? and cat.description = ?";
+		List<Category> res = entityManager.createQuery(hql).setParameter(1, name).setParameter(2, description)
+				.getResultList();
+		return res;
+	}
+
+	@Override
+	public List<Category> getAllCategoriesByName(String name) {
+		String hql = "FROM Category as cat WHERE cat.name = ?";
+		List<Category> res = entityManager.createQuery(hql).setParameter(1, name).getResultList();
+		return res;
+	}
+
+	@Override
+	public List<Category> getAllCategoriesByDescrpt(String description) {
+		String hql = "FROM Category as cat WHERE cat.description = ?";
+		List<Category> res = entityManager.createQuery(hql).setParameter(1, description).getResultList();
+		return res;
+	}
+
 }
