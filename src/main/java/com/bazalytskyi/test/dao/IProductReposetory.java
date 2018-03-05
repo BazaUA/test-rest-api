@@ -8,14 +8,14 @@ import com.bazalytskyi.test.data.entities.Product;
 public interface IProductReposetory {
 	List<Product> getAllProducts(int idCategory);
 
-	Product getProductById(int categoryId,int productId);
+	Product getProductById(int productId);
 
 	void addProduct(Product product);
 
 	void updateProduct(Product product);
 
-	void deleteProduct(int categoryId,int productId);
+	void deleteProduct(int productId);
 
-	int getNumberOfProducts(int idCategory);
+	Long getNumberOfProducts(int idCategory);
 	
 }

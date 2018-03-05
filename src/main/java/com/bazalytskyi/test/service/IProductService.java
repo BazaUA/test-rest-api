@@ -8,13 +8,13 @@ import com.bazalytskyi.test.data.entities.Product;
 public interface IProductService {
 	List<Product> getAllProducts(int categoryId);
 
-	Product getProductById(int categoryId,int productId);
+	Product getProductById(int productId);
 
 	void addProduct(Product product);
 
 	void updateProduct(Product product);
 
-	void deleteProduct(int categoryId,int productId);
+	void deleteProduct(int productId);
 
-	int getNumberOfProducts(int categoryId);
+	Long getNumberOfProducts(int categoryId);
 }

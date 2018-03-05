@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bazalytskyi.test.dao.ICategoryReposetory;
+import com.bazalytskyi.test.dao.ICategoryRepository;
 import com.bazalytskyi.test.data.entities.Category;
 
 @Service
 public class CategoryService implements ICategoryService {
 	@Autowired
-	private ICategoryReposetory repository;
+	private ICategoryRepository repository;
 
 	@Override
 	public List<Category> getAllCategories() {

@@ -1,6 +1,5 @@
 package com.bazalytskyi.test.client;
 
-import java.net.URI;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -10,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.bazalytskyi.test.data.entities.Category;
 import com.bazalytskyi.test.data.entities.CategoryDTO;
-import com.bazalytskyi.test.data.entities.Product;
 import com.bazalytskyi.test.data.entities.ProductDTO;
 
 public class RestClient {
@@ -31,7 +29,7 @@ public class RestClient {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		RestTemplate restTemplate = new RestTemplate();
-		String url = "http://localhost:8080/api/categories";
+		String url = "http://localhost:8080/api/categories/";
 		HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 		ResponseEntity<CategoryDTO[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
 				CategoryDTO[].class);
@@ -47,11 +45,10 @@ public class RestClient {
 		RestTemplate restTemplate = new RestTemplate();
 		String url = "http://localhost:8080/api/category";
 		CategoryDTO objCategory = new CategoryDTO();
-		objCategory.setName("Laptops");
-		objCategory.setDescription("MacBooks");
+		objCategory.setName("Cars");
+		objCategory.setDescription("BMW and so on...");
 		HttpEntity<CategoryDTO> requestEntity = new HttpEntity<CategoryDTO>(objCategory, headers);
-		URI uri = restTemplate.postForLocation(url, requestEntity);
-		System.out.println(uri.getPath());
+		restTemplate.put(url, requestEntity);
 	}
 
 	public void updateCategory() {
@@ -60,15 +57,15 @@ public class RestClient {
 		RestTemplate restTemplate = new RestTemplate();
 		String url = "http://localhost:8080/api/category";
 		Category objCategory = new Category();
-		objCategory.setId(2);
-		objCategory.setName("Update:Smartphones1");
-		objCategory.setDescription("Update:Sell phones");
+		objCategory.setId(5);
+		objCategory.setName("Updated Cars1");
+		objCategory.setDescription("Update:BMW and so on...1");
 		HttpEntity<Category> requestEntity = new HttpEntity<Category>(objCategory, headers);
-		restTemplate.put(url, requestEntity);
+		restTemplate.postForLocation(url, requestEntity);
 	}
 
 	public void deleteCategory() {
-		int categoryId = 2;
+		int categoryId = 5;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		RestTemplate restTemplate = new RestTemplate();
@@ -77,15 +74,14 @@ public class RestClient {
 	}
 
 	public void getProductById() {
-		int categoryId = 1;
 		int productId = 1;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		RestTemplate restTemplate = new RestTemplate();
-		String url = "http://localhost:8080/api/categories/{id_category}/products/{id_product}";
+		String url = "http://localhost:8080/api/products/{id_product}";
 		HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 		ResponseEntity<ProductDTO> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
-				ProductDTO.class, categoryId, productId);
+				ProductDTO.class, productId);
 		ProductDTO product = responseEntity.getBody();
 		System.out.println("Name:" + product.getName() + ", Description:" + product.getDescription());
 	}
@@ -110,13 +106,14 @@ public class RestClient {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		RestTemplate restTemplate = new RestTemplate();
-		String url = "http://localhost:8080/api/categories/" + categoryId + "/product";
+		String url = "http://localhost:8080/api/product";
 		ProductDTO objCategory = new ProductDTO();
+		objCategory.setCategoryId(categoryId);
 		objCategory.setName("IPhone");
-		objCategory.setDescription("Iphone X");
+		objCategory.setDescription("Iphone 9");
 		objCategory.setPrice(1000);
 		HttpEntity<ProductDTO> requestEntity = new HttpEntity<ProductDTO>(objCategory, headers);
-		URI uri = restTemplate.postForLocation(url, requestEntity);
+		restTemplate.put(url, requestEntity);
 
 	}
 
@@ -125,23 +122,23 @@ public class RestClient {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		RestTemplate restTemplate = new RestTemplate();
-		String url = "http://localhost:8080/api/categories/" + categoryId + "/product";
-		Product objCategory = new Product();
-		objCategory.setId(2);
+		String url = "http://localhost:8080/api/product";
+		ProductDTO objCategory = new ProductDTO();
+		objCategory.setCategoryId(categoryId);
+		objCategory.setId(4);
 		objCategory.setName("Update:IPhone");
 		objCategory.setDescription("Update:Iphone X");
 		objCategory.setPrice(999);
-		HttpEntity<Product> requestEntity = new HttpEntity<Product>(objCategory, headers);
-		restTemplate.put(url, requestEntity);
+		HttpEntity<ProductDTO> requestEntity = new HttpEntity<ProductDTO>(objCategory, headers);
+		restTemplate.postForLocation(url, requestEntity);
 	}
 
 	public void deleteProduct() {
-		int categoryId = 1;
-		int productId = 2;
+		int productId = 6;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		RestTemplate restTemplate = new RestTemplate();
-		String url = "http://localhost:8080/api/categories/" + categoryId + "/product/" + productId;
+		String url = "http://localhost:8080/api/product/" + productId;
 		restTemplate.delete(url);
 	}
 
@@ -149,7 +146,7 @@ public class RestClient {
 		RestClient client = new RestClient();
 		// client.getCategoryById();
 		// client.getAllCategories();
-		 client.addCategory();
+		// client.addCategory();
 		// client.updateCategory();
 		// client.deleteCategory();
 		// client.getAllProducts();

@@ -3,7 +3,7 @@ package com.bazalytskyi.test.data.entities;
 public class CategoryDTO {
 	private String name;
 	private String description;
-	private int total;
+	private Long total;
 	
 	
 	
@@ -19,10 +19,10 @@ public class CategoryDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getTotal() {
+	public Long getTotal() {
 		return total;
 	}
-	public void setTotal(int total) {
+	public void setTotal(Long total) {
 		this.total = total;
 	}
 	

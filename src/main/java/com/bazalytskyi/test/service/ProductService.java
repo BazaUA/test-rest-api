@@ -20,13 +20,13 @@ public class ProductService implements IProductService {
 	}
 	
 	@Override
-	public int getNumberOfProducts(int categoryId) {
+	public Long getNumberOfProducts(int categoryId) {
 		return reposetory.getNumberOfProducts(categoryId);
 	}
 
 	@Override
-	public Product getProductById(int categoryId,int productId) {
-		return reposetory.getProductById(categoryId,productId);
+	public Product getProductById(int productId) {
+		return reposetory.getProductById(productId);
 	}
 
 	@Override
@@ -41,8 +41,8 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public void deleteProduct(int categoryId,int productId) {
-		reposetory.deleteProduct(categoryId,productId);
+	public void deleteProduct(int productId) {
+		reposetory.deleteProduct(productId);
 	}
 
 }
