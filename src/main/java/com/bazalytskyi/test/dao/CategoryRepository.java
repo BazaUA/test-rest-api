@@ -6,11 +6,16 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 
+import org.hibernate.cfg.annotations.QueryBinder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.bazalytskyi.test.data.entities.Category;
+import com.bazalytskyi.test.data.entities.Category_;
 
 @Transactional
 @Repository
@@ -19,10 +24,18 @@ public class CategoryRepository implements ICategoryRepository {
 	private EntityManager entityManager;
 
 	@Override
-	public List<Category> getAllCategories() {
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Category> cq = cb.createQuery(Category.class);
+	public List<Category> getAllCategories(String name, String description) {
+		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Category> cq = qb.createQuery(Category.class);
 		Root<Category> rootEntry = cq.from(Category.class);
+		if (name != null) {
+			Predicate namePredicate = qb.equal(rootEntry.get(Category_.name), name);
+			cq.where(namePredicate);
+		}
+		if (description != null) {
+			Predicate descriptionPredicate = qb.equal(rootEntry.get(Category_.description), description);
+			cq.where(descriptionPredicate);
+		}
 		CriteriaQuery<Category> all = cq.select(rootEntry);
 		TypedQuery<Category> allQuery = entityManager.createQuery(all);
 		return allQuery.getResultList();
@@ -64,28 +77,6 @@ public class CategoryRepository implements ICategoryRepository {
 	public boolean isIdExists(int id) {
 		Category cat = entityManager.find(Category.class, id);
 		return cat == null ? false : true;
-	}
-
-	@Override
-	public List<Category> getAllCategoriesByNameAndDescrpt(String name, String description) {
-		String hql = "FROM Category as cat WHERE cat.name = ? and cat.description = ?";
-		List<Category> res = entityManager.createQuery(hql).setParameter(1, name).setParameter(2, description)
-				.getResultList();
-		return res;
-	}
-
-	@Override
-	public List<Category> getAllCategoriesByName(String name) {
-		String hql = "FROM Category as cat WHERE cat.name = ?";
-		List<Category> res = entityManager.createQuery(hql).setParameter(1, name).getResultList();
-		return res;
-	}
-
-	@Override
-	public List<Category> getAllCategoriesByDescrpt(String description) {
-		String hql = "FROM Category as cat WHERE cat.description = ?";
-		List<Category> res = entityManager.createQuery(hql).setParameter(1, description).getResultList();
-		return res;
 	}
 
 }

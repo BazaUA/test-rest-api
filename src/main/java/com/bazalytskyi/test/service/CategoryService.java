@@ -14,8 +14,8 @@ public class CategoryService implements ICategoryService {
 	private ICategoryRepository repository;
 
 	@Override
-	public List<Category> getAllCategories() {
-		return repository.getAllCategories();
+	public List<Category> getAllCategories(String name, String description) {
+		return repository.getAllCategories(name, description);
 	}
 
 	@Override
@@ -48,21 +48,6 @@ public class CategoryService implements ICategoryService {
 	@Override
 	public boolean isCategoryIdExist(int categoryId) {
 		return repository.isIdExists(categoryId);
-	}
-
-	@Override
-	public List<Category> getAllCategoriesByNameAndDescrpt(String name, String description) {
-		return repository.getAllCategoriesByNameAndDescrpt(name, description);
-	}
-
-	@Override
-	public List<Category> getAllCategoriesByName(String name) {
-		return repository.getAllCategoriesByName(name);
-	}
-
-	@Override
-	public List<Category> getAllCategoriesByDescrpt(String description) {
-		return repository.getAllCategoriesByDescrpt(description);
 	}
 
 }

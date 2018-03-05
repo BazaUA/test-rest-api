@@ -36,21 +36,9 @@ public class CategoryController {
 	public ResponseEntity<List<CategoryDTO>> getAllCategories(
 			@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "description", required = false) String description) {
-		if (name != null && description != null) {
-			List<CategoryDTO> dtoList = convertToCategoriesDTO(
-					categoryService.getAllCategoriesByNameAndDescrpt(name, description));
-			return new ResponseEntity<List<CategoryDTO>>(dtoList, HttpStatus.OK);
-		} else if (description == null && name != null) {
+		List<CategoryDTO> dtoList = convertToCategoriesDTO(categoryService.getAllCategories(name, description));
+		return new ResponseEntity<List<CategoryDTO>>(dtoList, HttpStatus.OK);
 
-			List<CategoryDTO> dtoList = convertToCategoriesDTO(categoryService.getAllCategoriesByName(name));
-			return new ResponseEntity<List<CategoryDTO>>(dtoList, HttpStatus.OK);
-		} else if (name == null && description != null) {
-			List<CategoryDTO> dtoList = convertToCategoriesDTO(categoryService.getAllCategoriesByDescrpt(description));
-			return new ResponseEntity<List<CategoryDTO>>(dtoList, HttpStatus.OK);
-		} else {
-			List<CategoryDTO> dtoList = convertToCategoriesDTO(categoryService.getAllCategories());
-			return new ResponseEntity<List<CategoryDTO>>(dtoList, HttpStatus.OK);
-		}
 	}
 
 	private List<CategoryDTO> convertToCategoriesDTO(List<Category> list) {
