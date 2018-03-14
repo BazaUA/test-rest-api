@@ -74,7 +74,7 @@ public class RestClient {
 	}
 
 	public void getProductById() {
-		int productId = 1;
+		int productId = 3;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		RestTemplate restTemplate = new RestTemplate();
@@ -150,7 +150,7 @@ public class RestClient {
 		// client.updateCategory();
 		// client.deleteCategory();
 		// client.getAllProducts();
-		// client.getCategoryById();
+		 client.getProductById();
 		// client.addProduct();
 		// client.updateProduct();
 		// client.deleteProduct();

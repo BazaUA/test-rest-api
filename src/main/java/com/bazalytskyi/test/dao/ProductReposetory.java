@@ -3,8 +3,12 @@ package com.bazalytskyi.test.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.bazalytskyi.test.data.entities.Category;
 import com.bazalytskyi.test.data.entities.Product;
 
 @Transactional
@@ -19,17 +23,18 @@ public class ProductReposetory implements IProductReposetory {
 		String hql = "FROM Product as p WHERE p.category.id = ?";
 		return entityManager.createQuery(hql).setParameter(1, idCategory).getResultList();
 	}
-	
+
 	@Override
+	@Cacheable(value = "categoryByIdCount")
 	public Long getNumberOfProducts(int idCategory) {
 		String hql = "SELECT count(*) FROM Product as p WHERE p.category.id = ?";
 		return (Long) entityManager.createQuery(hql).setParameter(1, idCategory).getResultList().get(0);
 	}
 
 	@Override
+	@Cacheable(value = "pduductById")
 	public Product getProductById(int productId) {
-		String hql = "FROM Product as p WHERE p.id = ?";
-		return (Product) entityManager.createQuery(hql).setParameter(1, productId).getSingleResult();
+		return entityManager.find(Product.class, productId);
 	}
 
 	@Override

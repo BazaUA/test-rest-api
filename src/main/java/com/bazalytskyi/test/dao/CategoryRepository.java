@@ -12,6 +12,7 @@ import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
 
 import org.hibernate.cfg.annotations.QueryBinder;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.bazalytskyi.test.data.entities.Category;
@@ -42,6 +43,7 @@ public class CategoryRepository implements ICategoryRepository {
 	}
 
 	@Override
+	@Cacheable(value = "categoryById")
 	public Category getCategoryById(int id) {
 		return entityManager.find(Category.class, id);
 	}
@@ -74,6 +76,7 @@ public class CategoryRepository implements ICategoryRepository {
 	}
 
 	@Override
+	@Cacheable(value = "isCategoryById")
 	public boolean isIdExists(int id) {
 		Category cat = entityManager.find(Category.class, id);
 		return cat == null ? false : true;
