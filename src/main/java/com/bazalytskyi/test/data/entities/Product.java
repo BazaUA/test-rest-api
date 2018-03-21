@@ -8,8 +8,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NamedQuery;
+
 @Entity
 @Table(name="Products")
+@NamedQuery(name = "findWithParam", query="select p FROM Product as p WHERE p.category.id = :idCategory")
 public class Product {
 	@Id
 	@GeneratedValue
@@ -20,6 +23,7 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name = "category_fk")
 	private Category category;
+	public static final String FIND_ALL = "Category.findAll";
 
 	public Product(String name, String description, double price, Category category) {
 		this.name = name;

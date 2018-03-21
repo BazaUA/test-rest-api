@@ -8,17 +8,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
 
-import org.hibernate.cfg.annotations.QueryBinder;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.bazalytskyi.test.data.entities.Category;
 import com.bazalytskyi.test.data.entities.Category_;
 
-@Transactional
 @Repository
 public class CategoryRepository implements ICategoryRepository {
 	@PersistenceContext

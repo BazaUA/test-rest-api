@@ -9,7 +9,7 @@ public interface ICategoryService {
 
 	Category getCategoryById(int id);
 
-	boolean addCategory(Category category);
+	Category addCategory(Category category);
 
 	void updateCategory(Category category);
 

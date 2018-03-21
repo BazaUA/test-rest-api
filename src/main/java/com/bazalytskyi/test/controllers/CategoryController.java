@@ -70,8 +70,8 @@ public class CategoryController {
 	@PutMapping("category")
 	public ResponseEntity<Void> addCategory(@RequestBody CategoryDTO categoryDTO, UriComponentsBuilder builder) {
 		Category category = convertToCategory(categoryDTO);
-		boolean flag = categoryService.addCategory(category);
-		if (flag == false) {
+		Category flag = categoryService.addCategory(category);
+		if (flag == null) {
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
 		HttpHeaders headers = new HttpHeaders();

@@ -8,8 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NamedQuery;
+
 @Entity
 @Table(name = "Categories")
+
 public class Category {
 	@Id
 	@GeneratedValue
@@ -18,6 +21,8 @@ public class Category {
 	private String description;
 	@OneToMany(mappedBy = "category")
 	private List<Product> products;
+	
+
 
 	public Category(String name, String description) {
 		this.name = name;

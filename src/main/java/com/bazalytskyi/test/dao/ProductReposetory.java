@@ -3,12 +3,10 @@ package com.bazalytskyi.test.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
+import javax.persistence.Query;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.bazalytskyi.test.data.entities.Category;
 import com.bazalytskyi.test.data.entities.Product;
 
 @Transactional
@@ -20,8 +18,9 @@ public class ProductReposetory implements IProductReposetory {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Product> getAllProducts(int idCategory) {
-		String hql = "FROM Product as p WHERE p.category.id = ?";
-		return entityManager.createQuery(hql).setParameter(1, idCategory).getResultList();
+		Query query = entityManager.createNamedQuery("findWithParam");
+		query.setParameter("idCategory", idCategory);
+		return query.getResultList();
 	}
 
 	@Override
