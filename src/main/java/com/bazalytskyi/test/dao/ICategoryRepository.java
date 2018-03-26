@@ -9,7 +9,7 @@ public interface ICategoryRepository {
 
 	Category getCategoryById(int id);
 
-	void addCategory(Category category);
+	Category addCategory(Category category);
 
 	void updateCategory(Category category);
 

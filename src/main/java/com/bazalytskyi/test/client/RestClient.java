@@ -45,7 +45,7 @@ public class RestClient {
 		RestTemplate restTemplate = new RestTemplate();
 		String url = "http://localhost:8080/api/category";
 		CategoryDTO objCategory = new CategoryDTO();
-		objCategory.setName("Cars12");
+		objCategory.setName("Cars123");
 		objCategory.setDescription("BMW and so on...1");
 		HttpEntity<CategoryDTO> requestEntity = new HttpEntity<CategoryDTO>(objCategory, headers);
 		restTemplate.put(url, requestEntity);
@@ -57,8 +57,8 @@ public class RestClient {
 		RestTemplate restTemplate = new RestTemplate();
 		String url = "http://localhost:8080/api/category";
 		Category objCategory = new Category();
-		objCategory.setId(6);
-		objCategory.setName("Updated Cars1");
+		objCategory.setId(1);
+		objCategory.setName("Updated Cars12");
 		objCategory.setDescription("Update:BMW and so on...1");
 		HttpEntity<Category> requestEntity = new HttpEntity<Category>(objCategory, headers);
 		restTemplate.postForLocation(url, requestEntity);
@@ -144,8 +144,8 @@ public class RestClient {
 
 	public static void main(String args[]) {
 		RestClient client = new RestClient();
-		// client.addCategory();
-		// client.updateCategory();
+		 //client.addCategory();
+		 client.updateCategory();
 		// client.getCategoryById();
 		// client.getAllCategories();
 		// client.deleteCategory();

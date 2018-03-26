@@ -34,23 +34,23 @@ public class CategoryService implements ICategoryService {
 
 	@Override
 	public Category addCategory(Category category) {
-		transactionTemplate.execute(new TransactionCallback<Void>() {
-			public Void doInTransaction(TransactionStatus txStatus) {
+		Category res=transactionTemplate.execute(new TransactionCallback<Category>() {
+			public Category doInTransaction(TransactionStatus txStatus) {
 				try {
 
 					if (repository.isExists(category.getName(), category.getDescription())) {
 						return null;
 					} else {
 						repository.addCategory(category);
+						return category;
 					}
 				} catch (RuntimeException e) {
 					txStatus.setRollbackOnly();
 					throw e;
 				}
-				return null;
 			}
 		});
-		return category;
+		return res;
 	}
 
 	@Override

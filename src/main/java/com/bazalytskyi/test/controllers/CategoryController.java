@@ -49,7 +49,7 @@ public class CategoryController {
 		return res;
 	}
 
-	@GetMapping("/categories/{id}")
+	@GetMapping("/category/{id}")
 	public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable("id") Integer id) {
 		if (!categoryService.isCategoryIdExist(id)) {
 			return new ResponseEntity<CategoryDTO>(HttpStatus.NOT_FOUND);

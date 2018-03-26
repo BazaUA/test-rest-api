@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,17 +40,18 @@ public class CategoryRepository implements ICategoryRepository {
 	}
 
 	@Override
-	@Cacheable(value = "categoryById")
+	@Cacheable(value = "categoryById", key ="#id")
 	public Category getCategoryById(int id) {
 		return entityManager.find(Category.class, id);
 	}
 
 	@Override
-	public void addCategory(Category category) {
-		entityManager.persist(category);
+	public Category addCategory(Category category) {
+		return entityManager.merge(category);
 	}
 
 	@Override
+	@CacheEvict(value =  "categoryById", key = "#category.id")
 	public void updateCategory(Category category) {
 		Category newCategory = this.getCategoryById(category.getId());
 		newCategory.setName(category.getName());
