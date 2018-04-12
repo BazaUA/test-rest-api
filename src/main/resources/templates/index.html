@@ -1,9 +1,113 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
+<head>
+<title>Bootstrap Example</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
 <body>
-	<h1>Welcome to Spring boot API</h1>
-</body>
 
+	<div class="container text-center">
+
+		<h2>Index</h2>
+
+		<p>
+			<button  type='button' class="btn btn-primary" onclick='RestPut()'>Create</button>
+		</p>
+		<table class="table">
+			<tr>
+				<th>ID</th>
+				<th>Description</th>
+				<th>Name</th>
+				<th>Number of products</th>
+				<th></th>
+				<th></th>
+			</tr>
+			
+			{{#list}}
+			<tr id={{id}}>
+				<td>{{id}}</td>
+				<td>{{name}}</td>
+				<td>{{description}}</td>
+				<td>{{total}}</td>
+
+				<td>
+					<button id={{id}} type='button' class="btn btn-primary" onclick='RestPost()'>Edit</button>
+
+				</td>
+				<td>
+					<button id={{id}} type='button' class="btn btn-primary"
+						onclick='RestDelete(this.id)'>Delete</button>
+				</td>
+			</tr>
+			{{/list}}
+
+		</table>
+	</div>
+	<script type="text/javascript">
+	var prefix = '/api/category';
+	var RestPut = function() {
+
+	    var JSONObject= {
+	        'name': Date.now(),
+	        'description': 'User PUT call !!!'
+	    };
+
+	    $.ajax({
+	        type: 'PUT',
+	        url:  prefix ,
+	        contentType: 'application/json; charset=utf-8',
+	        data: JSON.stringify(JSONObject),
+	        dataType: 'json',
+	        async: true,
+	        success: function(result) {
+	            alert('At ' + result.time
+	                + ': ' + result.message);
+	        },
+	        error: function(jqXHR, textStatus, errorThrown) {
+	            alert(jqXHR.status + ' ' + jqXHR.responseText);
+	        }
+	    });
+	}
+
+	var RestPost = function(clicked_id) {
+		
+	        $.ajax({
+	        type: 'POST',
+	        url:  prefix + '/MyData',
+	        dataType: 'json',
+	        async: true,
+	        success: function(result) {
+	            alert('At ' + result.time
+	                + ': ' + result.message);
+	        },
+	        error: function(jqXHR, textStatus, errorThrown) {
+	            alert(jqXHR.status + ' ' + jqXHR.responseText);
+	        }
+	    });
+	}
+
+	var RestDelete = function(clicked_id) {
+		document.getElementById(clicked_id).style.display = "none";
+	        $.ajax({
+	        type: 'DELETE',
+	        url:  prefix + "/" + clicked_id,
+	        dataType: 'json',
+	        async: true,
+	        success: function(result) {
+	            alert('deleted ' + result.message);
+	        },
+	        error: function(jqXHR, textStatus, errorThrown) {
+	            alert(jqXHR.status + ' ' + jqXHR.responseText);
+	        }
+	    });
+	}
+	</script>
+</body>
 </html>
