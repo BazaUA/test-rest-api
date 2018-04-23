@@ -1,18 +1,12 @@
 package com.bazalytskyi.test.data.entities;
 
 public class CategoryDTO {
-	private int id;
 	private String name;
 	private String description;
 	private Long total;
 	
 	
-	public void setId(int id) {
-		this.id = id;
-	}
-	public int getId() {
-		return id;
-	}
+	
 	public String getName() {
 		return name;
 	}
